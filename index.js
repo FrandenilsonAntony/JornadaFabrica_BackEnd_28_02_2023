@@ -28,7 +28,7 @@ const mensagens = [
 ];
 // - [GET] /mensagens - Retorna a lista de mensagens
 app.get('/mensagens', (req, res) =>{
-  res.send(mensagens)
+  res.send(mensagens.filter(Boolean));
 
 });
 
@@ -51,7 +51,7 @@ res.send(`Mensagem criada com sucesso: ' ${mensagem}'.`);
 
 });
 
-//- [PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
+// - [PUT] /mensagens/{id} - Atualiza uma mensagem pelo ID
 app.put('/mensagens/:id', (req, res) =>{
   const id = req.params.id - 1;
 
@@ -60,6 +60,15 @@ app.put('/mensagens/:id', (req, res) =>{
 
   res.send(`Mensagem atualizada com sucesso:'${mensagem} . '`);
 
+});
+
+// - [DELETE] /mensagens/{id} - Remove uma mensagem pelo ID
+app.delete('/mensagens/:id', (req, res) => {
+  const id = req.params.id - 1;
+
+  delete mensagens[id];
+
+  res.send('Mensagem removida com sucesso .');
 });
 
 app.listen(port, () => {
